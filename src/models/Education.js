@@ -18,4 +18,6 @@ const _init = (db) => {
     Model = db.model(`${import.meta.url.split(`/`).pop().split(`.`).shift()}`, schema)
 }
 
+export const getModel = () => Model
+
 export default { _init }
