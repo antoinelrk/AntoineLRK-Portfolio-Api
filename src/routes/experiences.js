@@ -1,4 +1,4 @@
-import { get, create, update, destroy } from '../controllers/SkillController.js'
+import { get, create, update, destroy } from '../controllers/ExperienceController.js'
 import AuthMiddleware from '../middlewares/AuthMiddleware.js'
 import { body, param } from 'express-validator'
 
@@ -9,18 +9,22 @@ export default function (router) {
     router.get(`${prefix}/:id`, (request, response) => get(request, response))
 
     router.post(`${prefix}`, [(request, response, next) => AuthMiddleware(request, response, next)], [
-        body('name').notEmpty().isString(),
-        body('fill').notEmpty().isString(),
-        body('grade').notEmpty().isNumeric(),
-        body('icon').notEmpty().isString()
+        body('title').notEmpty().isString(),
+        body('start_at').notEmpty().isString(),
+        body('company_name').notEmpty().isString(),
+        body('company_url').notEmpty().isString(),
+        body('company_brand').notEmpty().isString(),
+        body('description').notEmpty().isString()
     ], (request, response) => create(request, response))
 
     router.patch(`${prefix}/:id`, [(request, response, next) => AuthMiddleware(request, response, next)], [
         param('id').notEmpty(),
-        body('name').isString(),
-        body('fill').isString(),
-        body('grade').isNumeric(),
-        body('icon').isString()
+        body('title').isString(),
+        body('start_at').notEmpty().isString(),
+        body('company_name').isString(),
+        body('company_url').isString(),
+        body('company_brand').isString(),
+        body('description').isString()
     ], (request, response) => update(request, response))
 
     router.delete(`${prefix}/:id`,

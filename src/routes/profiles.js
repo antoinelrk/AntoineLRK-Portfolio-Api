@@ -1,4 +1,4 @@
-import { get, create, update, destroy } from '../controllers/SkillController.js'
+import { get, create, update, destroy } from '../controllers/ProfileController.js'
 import AuthMiddleware from '../middlewares/AuthMiddleware.js'
 import { body, param } from 'express-validator'
 
@@ -10,17 +10,21 @@ export default function (router) {
 
     router.post(`${prefix}`, [(request, response, next) => AuthMiddleware(request, response, next)], [
         body('name').notEmpty().isString(),
-        body('fill').notEmpty().isString(),
-        body('grade').notEmpty().isNumeric(),
-        body('icon').notEmpty().isString()
+        body('biography').notEmpty().isString(),
+        body('jobTitle').notEmpty().isString(),
+        body('avatar_url').isString(),
+        body('cv_uri').isString(),
+        body('cv_url').isString(),
     ], (request, response) => create(request, response))
 
     router.patch(`${prefix}/:id`, [(request, response, next) => AuthMiddleware(request, response, next)], [
         param('id').notEmpty(),
         body('name').isString(),
-        body('fill').isString(),
-        body('grade').isNumeric(),
-        body('icon').isString()
+        body('biography').isString(),
+        body('jobTitle').isString(),
+        body('avatar_url').isString(),
+        body('cv_uri').isString(),
+        body('cv_url').isString(),
     ], (request, response) => update(request, response))
 
     router.delete(`${prefix}/:id`,
